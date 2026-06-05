@@ -61,7 +61,7 @@ export default function RootLayout({
                 "email": "info@aspu.it"
               },
               "sameAs": [
-                "https://www.facebook.com/share/7kVZSfLg7Bd31wwH/?mibextid=LQQJ4d"
+                "https://www.facebook.com/share/18r5Bou2Gf/?mibextid=wwXIfr"
               ],
               "knowsAbout": [
                 "Counseling Umanistico",

@@ -280,7 +280,7 @@ export default function Home() {
             id="hero-prev-btn"
             onClick={prevSlide}
             aria-label="Slide precedente"
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/25 transition-all"
+            className="hidden sm:block absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/25 transition-all"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -288,7 +288,7 @@ export default function Home() {
             id="hero-next-btn"
             onClick={nextSlide}
             aria-label="Slide successiva"
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/25 transition-all"
+            className="hidden sm:block absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/25 transition-all"
           >
             <ChevronRight className="h-6 w-6" />
           </button>

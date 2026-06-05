@@ -93,7 +93,7 @@ export default function Footer() {
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-outfit font-bold text-white text-sm">Sede Fisica</h4>
+                  <h4 className="font-outfit font-bold text-white text-sm">Sede Operativa</h4>
                   <p className="text-stone-400 text-sm mt-0.5">Vico Pallonetto a Santa Chiara, 8<br />80134 - Napoli (NA)</p>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default function Footer() {
               {/* Social Channels */}
               <div className="pt-2 flex items-center gap-4">
                 <a 
-                  href="https://www.facebook.com/share/7kVZSfLg7Bd31wwH/?mibextid=LQQJ4d" 
+                  href="https://www.facebook.com/share/18r5Bou2Gf/?mibextid=wwXIfr" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="w-10 h-10 rounded-xl bg-stone-900 border border-stone-850 hover:border-[#1877F2]/50 hover:bg-[#1877F2]/10 text-stone-400 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md"
