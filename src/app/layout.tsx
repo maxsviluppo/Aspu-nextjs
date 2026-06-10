@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "Scuola di Counseling ad Approccio Umanistico Integrato (Carl Rogers) a Napoli. Crescita personale, formazione e consulenza professionale dal 1999.",
   keywords: ["counseling napoli", "approccio rogersiano", "carl rogers", "crescita personale", "scuola counseling", "aspu"],
   verification: {
-    google: "google-site-verification-placeholder-code-aspu",
+    google: "o1JLvqbSa14o6nqXXHVy29rhjflpg7QMlwSZdd4qoeI",
   }
 };
 

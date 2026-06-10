@@ -20,12 +20,98 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const loggedIn = sessionStorage.getItem("aspu_admin_logged_in") === "true";
+      setIsAuthenticated(loggedIn);
+    }
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === "Aspu" && password === "Aspu2026!") {
+      sessionStorage.setItem("aspu_admin_logged_in", "true");
+      setIsAuthenticated(true);
+      setError("");
+    } else {
+      setError("Credenziali non valide!");
+    }
+  };
 
   const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Contatti e Iscrizioni", href: "/admin/contatti", icon: Users },
     { name: "SEO Pagine", href: "/admin/seo", icon: Search },
   ];
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-stone-950 flex items-center justify-center p-6 antialiased font-sans">
+        <div className="w-full max-w-md bg-stone-900/40 border border-stone-800/80 p-8 rounded-3xl shadow-2xl backdrop-blur-md space-y-6">
+          <div className="text-center space-y-2">
+            <div className="h-12 w-12 rounded-2xl bg-stone-800/20 border border-stone-800 flex items-center justify-center text-stone-300 mx-auto">
+              <Shield className="h-6 w-6" />
+            </div>
+            <h2 className="font-outfit font-extrabold text-2xl text-white tracking-wide">Area Amministratore</h2>
+            <p className="text-stone-400 text-xs">Inserisci le credenziali per accedere alla console ASPU</p>
+          </div>
+
+          {error && (
+            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs text-center font-semibold">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4 text-xs font-sans text-left">
+            <div className="space-y-1.5">
+              <label className="text-stone-300 font-semibold uppercase tracking-wider block">Nome Utente</label>
+              <input 
+                type="text" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder="Username"
+                className="w-full px-4 py-3 rounded-xl bg-stone-950 border border-stone-800 text-white placeholder-stone-700 focus:outline-none focus:border-stone-600 transition-colors"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-stone-300 font-semibold uppercase tracking-wider block">Password</label>
+              <input 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Password"
+                className="w-full px-4 py-3 rounded-xl bg-stone-950 border border-stone-800 text-white placeholder-stone-700 focus:outline-none focus:border-stone-600 transition-colors"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg border border-stone-700/40 cursor-pointer mt-2"
+            >
+              Accedi
+            </button>
+          </form>
+
+          <div className="text-center pt-2">
+            <Link 
+              href="/"
+              className="text-xs text-stone-400 hover:text-white underline transition-colors"
+            >
+              Torna al sito
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col md:flex-row antialiased font-sans">

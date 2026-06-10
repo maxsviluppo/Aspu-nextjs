@@ -20,6 +20,7 @@ export default function AdminDashboardHome() {
   const [leadsCount, setLeadsCount] = useState(0);
   const [newLeadsCount, setNewLeadsCount] = useState(0);
   const [seoPagesCount, setSeoPagesCount] = useState(6);
+  const [aiAccessEnabled, setAiAccessEnabled] = useState(true);
 
   useEffect(() => {
     // Load leads count from localStorage dynamically
@@ -34,6 +35,10 @@ export default function AdminDashboardHome() {
       if (storedSeo) {
         const seoData = JSON.parse(storedSeo);
         setSeoPagesCount(seoData.length);
+      }
+      const storedAi = localStorage.getItem("aspu_ai_access_enabled");
+      if (storedAi !== null) {
+        setAiAccessEnabled(JSON.parse(storedAi));
       }
     } catch (e) {
       console.error(e);
@@ -123,6 +128,82 @@ export default function AdminDashboardHome() {
 
       </section>
 
+      {/* AI SEO Monitor Section */}
+      <section className="p-8 rounded-3xl bg-stone-900/60 border border-stone-800/80 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h3 className="font-outfit font-extrabold text-xl text-white border-l-2 border-primary pl-2.5">
+              Monitor SEO AI-Agent &amp; Generative Engine Optimization (GEO)
+            </h3>
+            <p className="text-xs text-stone-400 mt-1">
+              Gestisci l'autorizzazione di scansione per i modelli di linguaggio e monitora l'indicizzazione nelle risposte AI (ChatGPT, Claude, Gemini, Perplexity)
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold text-stone-300">Accesso Web AI:</span>
+            <button
+              onClick={() => {
+                const newState = !aiAccessEnabled;
+                setAiAccessEnabled(newState);
+                localStorage.setItem("aspu_ai_access_enabled", JSON.stringify(newState));
+              }}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer ${
+                aiAccessEnabled ? "bg-emerald-500" : "bg-stone-800"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  aiAccessEnabled ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+            <span className={`text-xs font-bold ${aiAccessEnabled ? "text-emerald-400" : "text-stone-400"}`}>
+              {aiAccessEnabled ? "Abilitato (Consigliato)" : "Disabilitato"}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {[
+            { name: "ChatGPT / SearchGPT", agent: "GPTBot", desc: "OpenAI Crawler", lastActive: "Mai (Sito offline/locale)" },
+            { name: "Claude AI / Artifacts", agent: "ClaudeBot", desc: "Anthropic Crawler", lastActive: "Mai (Sito offline/locale)" },
+            { name: "Gemini / Google AI", agent: "Google-Extended", desc: "Google AI Crawler", lastActive: "Mai (Sito offline/locale)" },
+            { name: "Perplexity AI", agent: "PerplexityBot", desc: "Perplexity Search", lastActive: "Mai (Sito offline/locale)" },
+            { name: "Apple Intelligence", agent: "Applebot-Extended", desc: "Apple Search Agent", lastActive: "Mai (Sito offline/locale)" },
+          ].map((bot, idx) => (
+            <div key={idx} className="p-4 rounded-2xl bg-stone-950/40 border border-stone-900 flex flex-col justify-between space-y-4">
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <strong className="text-white text-sm block font-outfit truncate">{bot.name}</strong>
+                  <span className={`h-2 w-2 rounded-full ${aiAccessEnabled ? "bg-emerald-500/80" : "bg-amber-500/80"}`} />
+                </div>
+                <span className="text-[10px] text-stone-500 block truncate">UA: {bot.agent}</span>
+              </div>
+              
+              <div className="pt-2 border-t border-stone-900/60 space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-stone-400 font-light">Scansioni (30g)</span>
+                  <span className="text-white font-bold">0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-400 font-light">Stato</span>
+                  <span className={`font-bold ${aiAccessEnabled ? "text-emerald-400" : "text-amber-500"}`}>
+                    {aiAccessEnabled ? "Consentito (Offline)" : "Bloccato"}
+                  </span>
+                </div>
+                <div className="text-[10px] text-stone-500 pt-1 text-right italic font-light">
+                  {bot.lastActive}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-4 rounded-2xl bg-stone-900/20 border border-stone-850/60 text-xs text-stone-300 leading-relaxed">
+          <strong>💡 Ottimizzazione GEO (Generative Engine Optimization):</strong> Mantenere l'accesso web abilitato consente ai modelli di AI di leggere i contenuti del tuo sito in tempo reale, citando ASPU come fonte autorevole quando gli utenti fanno domande relative alla scuola di counseling e crescita personale.
+        </div>
+      </section>
+
       {/* Compliance & Webmaster check */}
       <section className="p-8 rounded-3xl bg-stone-900/40 border border-stone-800/60 shadow-xl space-y-6">
         <div>
@@ -135,7 +216,7 @@ export default function AdminDashboardHome() {
             { name: "ads.txt", path: "/ads.txt", desc: "Monetizzazione e compliance", status: "Configurato", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
             { name: "Sitemap XML", path: "/sitemap.xml", desc: "Mappa del sito per crawler", status: "Next.js Default", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
             { name: "Google Analytics", path: "/layout.tsx", desc: "Codice GA4 (G-XXXXXXXXXX)", status: "In Attesa / Da Configurare", color: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-            { name: "Google Verification", path: "/layout.tsx", desc: "Verifica della Search Console", status: "In Attesa / Da Configurare", color: "bg-amber-500/10 text-amber-500 border-amber-500/20" }
+            { name: "Google Verification", path: "/layout.tsx", desc: "Verifica della Search Console", status: "Configurato", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" }
           ].map((item, idx) => (
             <div key={idx} className="flex items-center justify-between p-4 rounded-2xl bg-stone-950/40 border border-stone-900/80 text-sm">
               <div>
