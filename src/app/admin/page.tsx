@@ -215,7 +215,7 @@ export default function AdminDashboardHome() {
           {[
             { name: "ads.txt", path: "/ads.txt", desc: "Monetizzazione e compliance", status: "Configurato", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
             { name: "Sitemap XML", path: "/sitemap.xml", desc: "Mappa del sito per crawler", status: "Next.js Default", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-            { name: "Google Analytics", path: "/layout.tsx", desc: "Codice GA4 (G-XXXXXXXXXX)", status: "In Attesa / Da Configurare", color: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
+            { name: "Google Analytics", path: "/layout.tsx", desc: "Codice GA4 (G-RBJK0LYEF0)", status: "Configurato", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
             { name: "Google Verification", path: "/layout.tsx", desc: "Verifica della Search Console", status: "Configurato", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" }
           ].map((item, idx) => (
             <div key={idx} className="flex items-center justify-between p-4 rounded-2xl bg-stone-950/40 border border-stone-900/80 text-sm">
